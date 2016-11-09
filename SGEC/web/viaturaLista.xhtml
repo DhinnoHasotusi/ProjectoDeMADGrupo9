@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="geral.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{viaturaController.carregarDados()}" type="preRenderView"/>
+                <f:event listener="#{viaturaController.carregar()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define> 
+             
+        <ui:define name="conteudo">
+            <h:form>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="VIATURAS"/>
+                    </f:facet>                    
+                    <f:facet name="right">
+                        <h:panelGrid columns="1">
+                        
+                        <p:commandButton value="Novo" action="viaturaCadastro.xhtml">
+                            <f:param name="acaoViat" value="Novo"/>
+                        </p:commandButton>
+                        </h:panelGrid>
+                    </f:facet>
+                </p:toolbar>
+                <p:separator/>
+                <p:dataTable emptyMessage="Nenhum Viatura nao Encontrado"  value="#{viaturaController.listaviatura}"  var="viatura" paginator="true" rows="5">
+                    <p:column headerText="Código" style="width: 6%;text-align: center">
+                        <h:outputText value="#{viatura.idViatura}"/>
+                    </p:column>
+                    <p:column style="text-align: center" headerText="Marca"  filterBy="#{viatura.marca}" sortBy="#{viatura.marca}">
+                        <h:outputText value="#{viatura.marca}"/>
+                    </p:column>
+                    <p:column headerText="Modelo" style="text-align: center" filterBy="#{viatura.modelo}">
+                        <h:outputText value="#{viatura.modelo}" />
+                    </p:column>
+                    <p:column headerText="Cor" style="text-align: center" filterBy="#{viatura.cor}">
+                        <h:outputText value="#{viatura.cor}"/>
+                    </p:column>
+                    <p:column headerText="Matricula" style="text-align: center" filterBy="#{viatura.matricula}">
+                        <h:outputText value="#{viatura.matricula}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Opções" style="text-align: center">
+                        <p:commandLink title="Editar" action="viaturaCadastro.xhtml">
+                            <p:graphicImage value="imagens/editar.png"/>
+                             <f:param name="acaoViat" value="Editar"/>
+                             <f:param name="codViat" value="#{viatura.idViatura}"/>
+                        </p:commandLink>
+                        <p:commandLink title="Eliminar" action="viaturaCadastro.xhtml">
+                            <p:graphicImage value="imagens/deleta.png"/>
+                             <f:param name="acaoViat" value="Eliminar"/>
+                             <f:param name="codViat" value="#{viatura.idViatura}"/>
+                        </p:commandLink>
+                    </p:column>                    
+                </p:dataTable>
+            </h:form>
+           
+        </ui:define>        
+    </ui:composition> 
+</html>

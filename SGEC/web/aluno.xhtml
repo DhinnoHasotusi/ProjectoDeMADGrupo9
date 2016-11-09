@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="geral.xhtml">
+         <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{matriculaController.carregarDados()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define> 
+        <ui:define name="conteudo">
+            <h:form>
+            <p:fieldset legend="Dados dos Alunos">
+                <p:dataTable emptyMessage="Nenhuma Aluno Reristrado..."  value="#{matriculaController.listaAlunos}"  var="aluno" paginator="true" rows="5">
+                    <p:column headerText="Código" style="width: 6%;text-align: center">
+                        <h:outputText value="#{aluno.idAluno}"/>
+                    </p:column>
+                    <p:column style="text-align: center" headerText="Nome do Aluno"  filterBy="#{aluno.nome}" sortBy="#{aluno.nome}">
+                        <h:outputText value="#{aluno.nome}"/>
+                    </p:column>
+                    <p:column headerText="Data de Nascimento" style="text-align: center">
+                        <h:outputText value="#{aluno.dataNascimento}"/>
+                    </p:column>
+                    <p:column headerText="Sexo" style="text-align: center">
+                        <h:outputText value="#{aluno.sexo}"/>
+                    </p:column>
+                    <p:column headerText="Telefone :" style="text-align: center">
+                        <h:outputText value="#{aluno.telefone}"/>
+                    </p:column>
+                     <p:column headerText="Cidade:" style="text-align: center">
+                         <h:outputText value="#{aluno.cidade}"/>                            
+                    </p:column>
+                    <p:column headerText="Bairro:" style="text-align: center">
+                        <h:outputText value="#{aluno.bairro}"/>                            
+                    </p:column>
+                   
+                    <p:column headerText="Editar/Eliminar" style="text-align: center">
+                        <p:commandLink action="matriculaCadastro.xhtml">
+                             <p:graphicImage value="imagens/editar.png"/>
+                             <f:param name="acaoFunc" value="Editar"/>
+                             <f:param name="codFunc" value="#{aluno.idAluno}"/>
+                        </p:commandLink>
+                        <p:commandLink action="matriculaCadastro.xhtml">
+                             <p:graphicImage value="imagens/deleta.png"/>
+                             <f:param name="acaoFunc" value="Eliminar"/>
+                             <f:param name="codFunc" value="#{aluno.idAluno}"/>
+                        </p:commandLink>
+                    </p:column>                    
+                </p:dataTable>
+                
+            </p:fieldset>
+            </h:form>
+        </ui:define>        
+    </ui:composition> 
+</html>

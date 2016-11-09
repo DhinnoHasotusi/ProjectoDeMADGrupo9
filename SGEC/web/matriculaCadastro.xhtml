@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="geral.xhtml">
+         <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{matriculaController.carregarDados()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define> 
+        <ui:define name="conteudo">
+            <p:fieldset legend="MATRICULA DE ALUNO">
+            <h:form id="frmentrada">
+                <h:panelGrid columns="2">                
+                <h:outputLabel value="Data: "/>
+                <p:inputText value="#{matriculaController.matricula.dataEscricao}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:inputText>  
+                
+                <h:outputLabel value="Categoria da Carta: "/>
+                <p:selectOneMenu value="#{matriculaController.matricula.categoriaCarta}" converter="cartaConverter" required="true" requiredMessage="Infome a Categoria Da Carta">
+                    <f:selectItem itemValue="" itemLabel="Selecione a Categoria"/>
+                    <f:selectItems value="#{matriculaController.listaCategoriaCarta}" var="catego" itemValue="#{catego}" itemLabel="#{catego.descricao}"/>
+                    <f:validateBean/>
+                </p:selectOneMenu>
+                
+                <h:outputLabel value="Periodo: "/>
+                <p:selectOneMenu value="#{matriculaController.matricula.periodo}" converter="periodoConverter" required="true" requiredMessage="Infome o Periodo">
+                    <f:selectItem itemValue="" itemLabel="Selecione o Periodo"/>
+                    <f:selectItems value="#{matriculaController.listaPeriodo}" var="perido" itemValue="#{perido}" itemLabel="#{perido.descricao}"/>
+                    <f:validateBean/>
+                </p:selectOneMenu>
+                <h:outputLabel value="O Funcionario: "/>
+                <h:outputText value="#{matriculaController.matricula.funcionario.nome}"/>
+                </h:panelGrid>
+                <p:separator style="height: 20px"/>
+                 <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="DADOS DO ALUNO"/>
+                    </f:facet>
+                </p:toolbar>
+                <center>
+                <p:fieldset legend="O ALUNO">
+                <h:panelGrid columns="4">
+                <p:outputLabel value="Nome do Aluno : "/>
+                <p:inputText value="#{matriculaController.aluno.nome}" required="true" requiredMessage="Informe o Nome do Aluno!"/>
+                <p:outputLabel value="Data De Nascimento : "/>
+                <p:calendar value="#{matriculaController.aluno.dataNascimento}" required="true" requiredMessage="Informe a Data de Nascimento do Aluno!"/>
+                <p:outputLabel value="Sexo : "/>
+                <p:selectOneMenu value="#{matriculaController.aluno.sexo}" required="true" requiredMessage="Informe o sexo do Aluno!">
+                    <f:selectItem itemValue="" itemLabel="Selecine o Sexo"/>
+                    <f:selectItem itemValue="Masculino" itemLabel="Masculino"/>
+                    <f:selectItem itemValue="Feminino" itemLabel="Feminino"/>
+                    <f:selectItem itemValue="Outro" itemLabel="Outro"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Telefone : "/>
+                <p:inputMask mask="999-999-999" value="#{matriculaController.aluno.telefone}" required="true" requiredMessage="Informe o Telemovel do Aluno!"/>
+                <p:outputLabel value="Cidade : "/>
+                <p:selectOneMenu value="#{matriculaController.aluno.cidade}">
+                    <f:selectItem itemValue="" itemLabel="Selecine a Cidade"/>
+                    <f:selectItem itemValue="Lubango" itemLabel="Lubango"/>
+                    <f:selectItem itemValue="Humpata" itemLabel="Humpata"/>
+                    <f:selectItem itemValue="Chibia" itemLabel="Chibia"/>
+                </p:selectOneMenu>
+                <p:outputLabel value="Bairro : "/>
+                <p:selectOneMenu value="#{matriculaController.aluno.bairro}">
+                    <f:selectItem itemValue="" itemLabel="Selecine o Bairro"/>
+                    <f:selectItem  itemValue="Lucrencia" itemLabel="Lucrencia"/>
+                    <f:selectItem itemValue="Minhota" itemLabel="Minhota"/>
+                    <f:selectItem itemValue="Joao D'Almeida" itemLabel="Joao D'Almeida"/>
+                </p:selectOneMenu>
+                </h:panelGrid>
+                </p:fieldset>
+                </center>
+                <p:separator/>
+                <center>
+                    <p:button value="Cancelar a Matricula" outcome="matriculaLista.xhtml"/>
+                    <p:commandButton value="Salvar a Matricula" action="#{matriculaController.salvar()}" update=":msgGlobal :frmentrada"/>
+                
+                </center>
+            </h:form>
+            </p:fieldset>
+        </ui:define>        
+    </ui:composition> 
+</html>

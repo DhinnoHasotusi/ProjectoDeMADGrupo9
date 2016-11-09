@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="geral.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{utilizadorController.carregarDados()}" type="preRenderView"/>
+                <f:event listener="#{utilizadorController.carregar()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define> 
+             
+        <ui:define name="conteudo">
+            <h:form>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="UTILIZADOR"/>
+                    </f:facet>                    
+                    <f:facet name="right">
+                        <h:panelGrid columns="1">
+                        
+                        <p:commandButton value="Novo" action="utilizadorCadastro.xhtml">
+                            <f:param name="acaoFunc" value="Novo"/>
+                        </p:commandButton>
+                        </h:panelGrid>
+                    </f:facet>
+                </p:toolbar>
+                <p:separator/>
+                <p:dataTable emptyMessage="Nenhum Utilizador Encontrado"  value="#{utilizadorController.listaUtilizador}"  var="utilizador">
+                    <p:column headerText="Código" style="width: 6%;text-align: center">
+                        <h:outputText value="#{utilizador.idUtilizador}"/>
+                    </p:column>
+                    <p:column style="text-align: center" headerText="Utilizador"  filterBy="#{utilizador.username}" sortBy="#{utilizador.username}">
+                        <h:outputText value="#{utilizador.username}"/>
+                    </p:column>
+                    <p:column headerText="Senha" style="text-align: center">
+                        <h:outputText value="#{utilizador.senha}"/>
+                    </p:column>
+                    <p:column headerText="O funcionario" style="text-align: center">
+                        <h:outputText value="#{utilizador.funcionario.nome}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Opções">
+                        <p:button value="Editar" outcome="utilizadorCadastro.xhtml">
+                            <f:param name="acaoUtil" value="Editar"/>
+                            <f:param name="codUtil" value="#{utilizador.idUtilizador}"/>
+                        </p:button>
+                        <p:button value="Eliminar" outcome="utilizadorCadastro.xhtml">
+                            <f:param name="acaoUtil" value="Eliminar"/>
+                            <f:param name="codUtil" value="#{utilizador.idUtilizador}"/>
+                        </p:button>
+                    </p:column>                    
+                </p:dataTable>
+            </h:form>
+           
+        </ui:define>        
+    </ui:composition> 
+</html>
+

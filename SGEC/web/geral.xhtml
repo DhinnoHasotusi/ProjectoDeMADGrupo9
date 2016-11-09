@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    
+    <ui:insert name="metadata" />
+    <h:head>
+        <title>SGEC</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+    </h:head>
+    <h:body>
+        <p:growl id="msgGlobal"/>
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north"  resizable="false" closable="false" collapsible="false">
+               
+            </p:layoutUnit>
+            <p:layoutUnit header="Data:" position="south" resizable="false" closable="false" collapsible="false">
+                
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="center" resizable="false" closable="false" collapsible="false" >
+                
+                 <h:form id="frmMnPrincipal">
+                    <p:menubar  id="pnlMnPrincipal" rendered="#{autenticarController.utilizadorAutenticar.username!=null}">
+                    <p:submenu label="Opções" icon="ui-icon-home">
+                        
+                        <p:menuitem value="Pagina Principal" outcome="principal.xhtml"/>
+                        <p:menuitem value="Sair"  action="#{autenticarController.sair()}"/>
+                    </p:submenu>
+                        <p:submenu icon="ui-icon-suitcase" label="Funcionarios" >
+                            <p:menuitem  value="Cadastrar Funcionário" outcome="funcionarioCadastro.xhtml" />
+                            <p:menuitem  value="Listar Funcionarios" outcome="funcionarioLista.xhtml"/>
+                                                
+                    </p:submenu>
+                        <p:submenu icon="ui-icon-folder-open" label="Matricula">
+                            <p:menuitem icon="ui-icon-contact" value="Nova Matricula" outcome="matriculaCadastro.xhtml"/>
+                            <p:menuitem icon="ui-icon-contact" value="Lista de Matricula" outcome="matriculaLista.xhtml"/>                                               
+                    </p:submenu>
+                        <p:submenu icon="ui-icon-folder-open" label="Aluno">
+                            <p:menuitem icon="ui-icon-contact" value="Dados dos Alunos" outcome="aluno.xhtml"/>
+                                                                          
+                    </p:submenu>
+                        <p:submenu icon="ui-icon-folder-open" label="Pagamento">
+                            <p:menuitem icon="ui-icon-contact" value="Novo pagamento" outcome="pagamentoCadastro.xhtml"/>
+                            <p:menuitem icon="ui-icon-contact" value="Lista de Pagamento" outcome="pagamentoLista.xhtml"/>                                               
+                    </p:submenu>
+                        
+                    <p:submenu icon="ui-icon-folder-open" label="Viaturas">
+                        <p:menuitem icon="ui-icon-contact" value="Cadastrar Viatura" outcome="viaturaCadastro.xhtml"/>
+                        <p:menuitem icon="ui-icon-contact" value="Lista de Viaturas" outcome="viaturaLista.xhtml"/>                                               
+                    </p:submenu>
+                        <p:submenu icon="ui-icon-folder-open" label="Utilizadores">
+                            <p:menuitem icon="ui-icon-contact" value="Cadastrar Utilizador" outcome="utilizadorCadastro.xhtml"/>
+                        <p:menuitem icon="ui-icon-contact" value="Lista de Utilizador" outcome="utilizadorLista.xhtml"/>                                               
+                    </p:submenu>
+                     
+                    </p:menubar>
+                </h:form>
+                <p:separator style="height: 20px"/>
+                <ui:insert name="conteudo"/> 
+            </p:layoutUnit>
+            
+        </p:layout>
+    </h:body>
+</html>

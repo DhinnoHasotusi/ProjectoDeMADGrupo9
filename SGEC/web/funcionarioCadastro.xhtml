@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="geral.xhtml">
+         <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{funcionarioController.carregarDados()}" type="preRenderView"/>
+                <f:event listener="#{funcionarioController.carregar()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define> 
+        <ui:define name="conteudo">
+           <p:dialog closable="false" draggable="false" modal="true" resizable="false" header="S.G.E.C" widgetVar="dialCadFun" appendTo="@(body)" showEffect="g" visible="true">
+            <h:form id="frm">
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="CADASTRO DE FUNCIONÁRIOS"/>
+                    </f:facet>
+                </p:toolbar>
+                <h:panelGrid id="pnlgfun" columns="2">
+                
+                <p:outputLabel value="Nome do Funcionário:"/>
+                <p:inputText maxlength="60" size="50" value="#{funcionarioController.funcionario.nome}" required="true" requiredMessage="Informe o nome do funcionario!"/>
+                <p:outputLabel value="Data de Nascimento"/>
+                <p:calendar size="20"  value="#{funcionarioController.funcionario.datanascimento}" required="true" requiredMessage="Informe a data de nascimento">
+                    
+                </p:calendar>
+                 <p:outputLabel value="Sexo"/>
+                 <p:selectOneMenu value="#{funcionarioController.funcionario.sexo}" required="true" requiredMessage="Informe o sexo!">
+                      <f:selectItem itemValue="" itemLabel="Selecione o Sexo"/>
+                      <f:selectItem itemValue="Masculino" itemLabel="Masculino"/>
+                      <f:selectItem itemValue="Femenino" itemLabel="Femenino"/>
+                      <f:selectItem itemValue="Outro" itemLabel="Outro"/>                      
+                  </p:selectOneMenu>
+                  <p:outputLabel value="Telefone:"/>
+                  <p:inputMask mask="999-999-999" value="#{funcionarioController.funcionario.telefone}" required="true" requiredMessage="Informe o numero de telefone!"/> 
+                  <p:outputLabel value="Cidade:"/>
+                  <p:selectOneMenu value="#{funcionarioController.funcionario.cidade}" required="true" requiredMessage="Informe a cidade!">
+                      <f:selectItem itemValue="" itemLabel="Selecione a cidade"/>
+                      <f:selectItem itemValue="Lubango" itemLabel="Lubango"/>
+                      <f:selectItem itemValue="Quipungo" itemLabel="Quipungo"/>
+                      <f:selectItem itemValue="Caluquembe" itemLabel="Cluquembe"/>
+                      <f:selectItem itemValue="Humpata" itemLabel="Humpata"/>
+                  </p:selectOneMenu>
+                   <p:outputLabel value="Bairro:"/>
+                   <p:selectOneMenu value="#{funcionarioController.funcionario.bairro}" required="true" requiredMessage="Informe o Bairro!">
+                      <f:selectItem itemValue="" itemLabel="Selecione o Bairro"/>
+                      <f:selectItem itemValue="Minhota" itemLabel="Minhota"/>
+                      <f:selectItem itemValue="Laige" itemLabel="Laige"/>
+                      <f:selectItem itemValue="Tchioco" itemLabel="Tchioco"/>
+                      <f:selectItem itemValue="Joao D'Almeida" itemLabel="Joao D'Almeida"/>
+                  </p:selectOneMenu>
+                
+                <p:outputLabel value="Cargo"/>
+                <p:selectOneMenu value="#{funcionarioController.funcionario.cargo}" converter="cargoConverter" required="true" requiredMessage="Informe o Cargo!">
+                    <f:selectItem itemValue=""  itemLabel="Selecione um Cargo"/>
+                    <f:selectItems value="#{funcionarioController.listaCargo}" var="cargo" itemValue="#{cargo}" itemLabel="#{cargo.descricao}"/>
+                    <f:validateBean/>
+                </p:selectOneMenu>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="5">
+                    <p:commandButton value="Novo" rendered="false"/>
+                <p:commandButton value="Salvar" actionListener="#{funcionarioController.salvar()}" update=":msgGlobal :frm:pnlgfun"/>
+                <p:commandButton value="Editar" actionListener="#{funcionarioController.editar()}" update=":msgGlobal :frm:pnlgfun"/>
+                <p:commandButton value="Eliminar" actionListener="#{funcionarioController.excluir()}" update=":msgGlobal :frm:pnlgfun"/>
+                <p:button value="Voltar" outcome="funcionarioLista.xhtml"/>
+                </h:panelGrid>
+            </h:form>
+            </p:dialog>
+        </ui:define>        
+    </ui:composition> 
+</html>

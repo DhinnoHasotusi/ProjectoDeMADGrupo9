@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="geral.xhtml">
+         <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{utilizadorController.carregarDados()}" type="preRenderView"/>
+                <f:event listener="#{utilizadorController.carregar()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define> 
+        <ui:define name="conteudo">
+           <p:dialog closable="false" draggable="false" modal="true" resizable="false" header="S.G.E.C" widgetVar="dialCadFun" appendTo="@(body)" showEffect="g" visible="true">
+            <h:form id="frm">
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="CADASTRO DE UTILIZADORES"/>
+                    </f:facet>
+                </p:toolbar>
+                <h:panelGrid id="pnlgfun" columns="2">
+                
+                <p:outputLabel value="Utilizador:"/>
+                <p:inputText maxlength="60" size="50" value="#{utilizadorController.utilizador.username}" required="true" requiredMessage="INFORME O NOME DE UTILIZADOR!"/>
+                <p:outputLabel value="Senha"/>
+                <p:password size="20"  value="#{utilizadorController.utilizador.senha}" redisplay="true" required="true" requiredMessage="INFORME A SENHA"/>
+                  
+                
+                <p:outputLabel value=" O funcionario"/>
+                <p:selectOneMenu value="#{utilizadorController.utilizador.funcionario}" converter="utilizadorConverter" required="true" requiredMessage="INFORME O UTILIZADOR DA CONTA">
+                    <f:selectItem itemValue=""  itemLabel="Selecione o funcionario"/>
+                    <f:selectItems value="#{utilizadorController.listaFuncionario}" var="func" itemValue="#{func}" itemLabel="#{func.nome}"/>
+                    <f:validateBean/>
+                </p:selectOneMenu>
+                </h:panelGrid>
+                
+                <h:panelGrid columns="5">
+                    <p:commandButton value="Novo" rendered="false"/>
+                    <p:commandButton value="Salvar" actionListener="#{utilizadorController.salvar()}" update=":msgGlobal :frm:pnlgfun"/>
+                    <p:commandButton value="Editar" actionListener="#{utilizadorController.editar()}" update=":msgGlobal :frm:pnlgfun"/>
+                    <p:commandButton value="Eliminar" actionListener="#{utilizadorController.excluir()}" update=":msgGlobal :frm:pnlgfun"/>
+                <p:button value="Voltar" outcome="utilizadorLista.xhtml"/>
+                </h:panelGrid>
+            </h:form>
+            </p:dialog>
+        </ui:define>        
+    </ui:composition> 
+</html>

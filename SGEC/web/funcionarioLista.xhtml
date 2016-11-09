@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="geral.xhtml">
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:event listener="#{funcionarioController.carregarDados()}" type="preRenderView"/>
+                <f:event listener="#{funcionarioController.carregar()}" type="preRenderView"/>
+            </f:metadata>
+        </ui:define> 
+             
+        <ui:define name="conteudo">
+            <h:form>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <h:outputText value="FUNCIONÁRIOS"/>
+                    </f:facet>                    
+                    <f:facet name="right">
+                        <h:panelGrid columns="1">
+                        
+                        <p:commandButton value="Novo" action="funcionarioCadastro.xhtml">
+                            <f:param name="acaoFunc" value="Novo"/>
+                        </p:commandButton>
+                        </h:panelGrid>
+                    </f:facet>
+                </p:toolbar>
+                <p:separator/>
+                <p:dataTable emptyMessage="Nenhum Funcionário Encontrado"  value="#{funcionarioController.listaFuncionario}"  var="funcionario" paginator="true" rows="5">
+                    <p:column headerText="Código" style="width: 6%;text-align: center">
+                        <h:outputText value="#{funcionario.idFuncionario}"/>
+                    </p:column>
+                    <p:column style="text-align: center" headerText="Nome do Funcionário"  filterBy="#{funcionario.nome}" sortBy="#{funcionario.nome}">
+                        <h:outputText value="#{funcionario.nome}"/>
+                    </p:column>
+                    <p:column headerText="Data de Nascimento" style="text-align: center">
+                        <h:outputText value="#{funcionario.datanascimento}"/>
+                    </p:column>
+                    <p:column headerText="Genero" style="text-align: center">
+                        <h:outputText value="#{funcionario.sexo}"/>
+                    </p:column>
+                    <p:column headerText="Telefone" style="text-align: center">
+                        <h:outputText value="#{funcionario.telefone}"/>
+                    </p:column>
+                    <p:column headerText="Cidade" style="text-align: center">
+                        <h:outputText value="#{funcionario.cidade}"/>
+                    </p:column>
+                    <p:column headerText="Bairro" style="text-align: center">
+                        <h:outputText value="#{funcionario.bairro}"/>
+                    </p:column>
+                    <p:column headerText="Cargo" style="text-align: center">
+                        <h:outputText value="#{funcionario.cargo.descricao}"/>
+                    </p:column>
+                    <p:column headerText="Opções" style="text-align: center">
+                        <p:commandLink title="Editar" action="funcionarioCadastro.xhtml">
+                            <p:graphicImage value="imagens/editar.png"/>
+                             <f:param name="acaoFunc" value="Editar"/>
+                             <f:param name="codFunc" value="#{funcionario.idFuncionario}"/>
+                        </p:commandLink>
+                        <p:commandLink title="Eliminar" action="funcionarioCadastro.xhtml">
+                            <p:graphicImage value="imagens/deleta.png"/>
+                             <f:param name="acaoFunc" value="Eliminar"/>
+                             <f:param name="codFunc" value="#{funcionario.idFuncionario}"/>
+                        </p:commandLink>
+                    </p:column>                    
+                </p:dataTable>
+            </h:form>
+           
+        </ui:define>        
+    </ui:composition> 
+</html>
